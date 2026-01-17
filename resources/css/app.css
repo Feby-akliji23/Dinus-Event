@@ -1,0 +1,435 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --dinus-ink: #0b1120;
+    --dinus-slate: #64748b;
+    --dinus-cyan: #22d3ee;
+    --dinus-blue: #2563eb;
+  }
+}
+
+@layer components {
+  /* Dinus hero: gradient sky, grid texture, floating glow orbs. */
+  .dinus-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: #fff;
+    background:
+      radial-gradient(1200px circle at 10% 10%, rgba(34, 211, 238, 0.25), transparent 40%),
+      radial-gradient(900px circle at 90% 20%, rgba(37, 99, 235, 0.35), transparent 45%),
+      linear-gradient(135deg, #0b1120 0%, #0f1b3a 50%, #08101f 100%);
+  }
+
+  .dinus-hero__grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.4;
+    background-image:
+      linear-gradient(to right, rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .dinus-hero__orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(64px);
+    pointer-events: none;
+  }
+
+  .dinus-hero__orb--a {
+    top: -8rem;
+    right: -8rem;
+    width: 26rem;
+    height: 26rem;
+    background: rgba(34, 211, 238, 0.3);
+  }
+
+  .dinus-hero__orb--b {
+    bottom: -10rem;
+    left: -8rem;
+    width: 24rem;
+    height: 24rem;
+    background: rgba(37, 99, 235, 0.3);
+  }
+
+  .dinus-hero__kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    background: rgba(34, 211, 238, 0.1);
+    padding: 0.25rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(224, 251, 255, 0.9);
+  }
+
+  .dinus-hero__title {
+    margin-top: 1.5rem;
+    font-family: "Space Grotesk", "Figtree", sans-serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .dinus-hero__lead {
+    margin-top: 1rem;
+    max-width: 32rem;
+    font-size: 1.05rem;
+    color: rgba(207, 250, 254, 0.8);
+  }
+
+  .dinus-hero__stat {
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1rem;
+  }
+
+  .dinus-hero__panel {
+    position: relative;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1.5rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 40px 80px rgba(15, 23, 42, 0.35);
+  }
+
+  /* Event section: brighter base to balance the bold hero. */
+  .dinus-events {
+    position: relative;
+    background:
+      radial-gradient(900px circle at 80% 0%, rgba(14, 165, 233, 0.12), transparent 45%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(15, 23, 42, 0.08));
+  }
+
+  .dinus-events::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 120px 120px;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dinus-events__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .dinus-events__header {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    z-index: 1;
+  }
+
+  @media (min-width: 768px) {
+    .dinus-events__header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+
+  .dinus-events__eyebrow {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: #0284c7;
+    font-weight: 600;
+  }
+
+  .dinus-events__title {
+    font-family: "Space Grotesk", "Figtree", sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .dinus-events__subtitle {
+    margin-top: 0.6rem;
+    max-width: 30rem;
+    color: var(--dinus-slate);
+  }
+
+  .dinus-events__filters {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .dinus-events__filters::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .dinus-events__filters::-webkit-scrollbar-thumb {
+    background: rgba(14, 165, 233, 0.35);
+    border-radius: 999px;
+  }
+
+  /* Event cards: glassy lift with neon accent on hover. */
+  .dinus-card {
+    position: relative;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .dinus-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+    border-color: rgba(34, 211, 238, 0.4);
+  }
+
+  .dinus-card__media {
+    position: relative;
+    height: 12rem;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(37, 99, 235, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .dinus-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .dinus-card:hover .dinus-card__img {
+    transform: scale(1.04);
+  }
+
+  .dinus-card__body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dinus-card__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .dinus-card__meta {
+    font-size: 0.85rem;
+    color: var(--dinus-slate);
+  }
+
+  .dinus-card__price {
+    margin-top: 0.4rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* Orders + checkout: minimal glass cards to match the hero mood. */
+  .dinus-orders {
+    background:
+      radial-gradient(800px circle at 20% 0%, rgba(37, 99, 235, 0.08), transparent 45%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(15, 23, 42, 0.06));
+  }
+
+  .dinus-orders__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .dinus-order-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #fff;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+  }
+
+  .dinus-order-card__media {
+    height: 11rem;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(37, 99, 235, 0.12));
+  }
+
+  .dinus-order-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dinus-order-card__body {
+    display: grid;
+    gap: 1rem;
+    padding: 1.25rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .dinus-order-card__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .dinus-order-card__meta {
+    margin-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--dinus-slate);
+  }
+
+  .dinus-order-card__price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .dinus-order-card__actions {
+    justify-self: end;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  @media (min-width: 1024px) {
+    .dinus-order-card {
+      flex-direction: row;
+    }
+
+    .dinus-order-card__media {
+      width: 14rem;
+      height: auto;
+    }
+
+    .dinus-order-card__body {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+  }
+
+  .dinus-order-detail {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+  }
+
+  .dinus-order-detail__media {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(37, 99, 235, 0.12));
+  }
+
+  .dinus-checkout {
+    border-radius: 1.5rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.12);
+  }
+
+  /* Event detail: elevated cover, info chips, and ticket rows. */
+  .dinus-event {
+    background:
+      radial-gradient(900px circle at 20% 0%, rgba(34, 211, 238, 0.08), transparent 45%),
+      linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(15, 23, 42, 0.06));
+  }
+
+  .dinus-event__wrap {
+    position: relative;
+  }
+
+  .dinus-event__card {
+    border-radius: 1.75rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+    overflow: hidden;
+  }
+
+  .dinus-event__media {
+    position: relative;
+    height: clamp(18rem, 40vw, 26rem);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.08), rgba(37, 99, 235, 0.12));
+  }
+
+  .dinus-event__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .dinus-event__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    background: rgba(37, 99, 235, 0.08);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    color: #1d4ed8;
+  }
+
+  .dinus-ticket {
+    border-radius: 1rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background: #fff;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .dinus-ticket {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .dinus-ticket__meta {
+    color: var(--dinus-slate);
+    font-size: 0.85rem;
+  }
+
+  .dinus-float {
+    animation: dinus-float 10s ease-in-out infinite;
+  }
+
+  .dinus-float-slow {
+    animation: dinus-float 14s ease-in-out infinite;
+  }
+}
+
+@keyframes dinus-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
