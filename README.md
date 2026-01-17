@@ -10,13 +10,13 @@ pemesanan yang dilakukan akan langsung tercatat pada riwayat pembelian.
 ## Skema Aplikasi
 
 ## Pembeli
-![Use Case Pembeli](images/usecase-pembeli.png)
+![Use Case Pembeli](public/assets/images/usecase-pembeli.png)
 
 ## Admin
-![Use Case Admin](images/usecase-admin.png)
+![Use Case Admin](public/assets/images/usecase-admin.png)
 
 ### Struktur Database
-![ERD](images/ERD.png)
+![ERD](public/assets/images/ERD.webp)
 
 **Kategori** berelasi one-to-many dengan **Event** , artinya satu kategori dapat memiliki banyak event, sementara setiap event hanya berada pada satu kategori (many-to-one dari Event ke Kategori). **User** juga memiliki relasi one-to-many dengan **Event** , karena satu user dapat membuat banyak event, tetapi satu event hanya dibuat oleh satu user. Selanjutnya, **Event** berelasi one-to-many dengan **Tiket** , sehingga satu event bisa menyediakan beberapa tipe tiket seperti premium atau reguler, sedangkan tiap tiket hanya terkait ke satu event. Pada proses transaksi, **User** berelasi one-to-many dengan **Order** karena satu user bisa melakukan banyak pemesanan, dan **Event** juga one-to-many dengan **Order** karena satu event bisa dipesan oleh banyak user. Hubungan antara **Order** dan **Tiket** secara konsep adalah **many-to-many** , karena satu order dapat berisi beberapa jenis tiket dan satu jenis tiket bisa muncul di banyak order; relasi ini diwujudkan melalui tabel penghubung **Detail Order** yang menyimpan rincian pembelian seperti jumlah dan subtotal.
 
