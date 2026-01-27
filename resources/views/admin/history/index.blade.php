@@ -11,6 +11,9 @@
                         <th>No</th>
                         <th>Nama Pembeli</th>
                         <th>Event</th>
+                        <th>Tipe Pembayaran</th>
+                        <th>Status Pembayaran</th>
+                        <th>Promo</th>
                         <th>Tanggal Pembelian</th>
                         <th>Total Harga</th>
                         <th class="whitespace-nowrap">Aksi</th>
@@ -22,6 +25,9 @@
                         <th>{{ $index + 1 }}</th>
                         <td>{{ $history->user->name }}</td>
                         <td>{{ $history->event?->judul ?? '-' }}</td>
+                        <td>{{ $history->paymentType?->nama ?? '-' }}</td>
+                        <td>{{ $history->paymentStatus?->nama ?? '-' }}</td>
+                        <td>{{ $history->promo?->nama ?? '-' }}</td>
                         <td>{{ $history->created_at->format('d M Y') }}</td>
                         <td>{{ number_format($history->total_harga, 0, ',', '.') }}</td>
                         <td>
@@ -30,7 +36,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center">Tidak ada history pembelian tersedia.</td>
+                        <td colspan="9" class="text-center">Tidak ada history pembelian tersedia.</td>
                     </tr>
                     @endforelse
                 </tbody>

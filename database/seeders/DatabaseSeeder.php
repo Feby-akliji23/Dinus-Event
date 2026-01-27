@@ -22,8 +22,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TicketTypeSeeder::class,
             PaymentTypeSeeder::class,
+            PaymentStatusSeeder::class,
             EventSeeder::class,
             TicketSeeder::class,
+            PromoSeeder::class,
             OrderSeeder::class,
         ]);
     }

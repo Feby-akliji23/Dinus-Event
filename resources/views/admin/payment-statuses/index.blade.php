@@ -1,8 +1,21 @@
-<x-layouts.admin title="Manajemen Tipe Pembayaran">
+<x-layouts.admin title="Manajemen Status Pembayaran">
     @if (session('success'))
         <div class="toast toast-bottom toast-center">
             <div class="alert alert-success">
                 <span>{{ session('success') }}</span>
+            </div>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast')?.remove()
+            }, 3000)
+        </script>
+    @endif
+    @if (session('error'))
+        <div class="toast toast-bottom toast-center">
+            <div class="alert alert-error">
+                <span>{{ session('error') }}</span>
             </div>
         </div>
 
@@ -17,35 +30,35 @@
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Manajemen</div>
-                <h1 class="text-2xl font-semibold text-slate-800">Tipe Pembayaran</h1>
+                <h1 class="text-2xl font-semibold text-slate-800">Status Pembayaran</h1>
             </div>
-            <a href="{{ route('admin.payment-types.create') }}" class="btn btn-primary">Tambah Tipe Pembayaran</a>
+            <a href="{{ route('admin.payment-statuses.create') }}" class="btn btn-primary">Tambah Status</a>
         </div>
         <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
             <table class="table w-full">
                 <thead class="text-xs uppercase tracking-wider text-slate-500">
                     <tr>
                         <th>No</th>
-                        <th class="w-1/2">Nama Tipe Pembayaran</th>
+                        <th class="w-1/2">Nama Status</th>
                         <th>Dibuat pada</th>
                         <th class="whitespace-nowrap">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-slate-700">
-                    @forelse ($paymentTypes as $index => $paymentType)
+                    @forelse ($paymentStatuses as $index => $paymentStatus)
                         <tr>
                             <th>{{ $index + 1 }}</th>
-                            <td>{{ $paymentType->nama }}</td>
-                            <td>{{ $paymentType->created_at->format('d M Y H:i') }}</td>
+                            <td>{{ $paymentStatus->nama }}</td>
+                            <td>{{ $paymentStatus->created_at->format('d M Y H:i') }}</td>
                             <td>
-                                <a href="{{ route('admin.payment-types.show', $paymentType->id) }}" class="btn btn-sm btn-outline mr-2">Detail</a>
-                                <a href="{{ route('admin.payment-types.edit', $paymentType->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                <button class="btn btn-sm btn-error" onclick="openDeleteModal(this)" data-id="{{ $paymentType->id }}">Hapus</button>
+                                <a href="{{ route('admin.payment-statuses.show', $paymentStatus->id) }}" class="btn btn-sm btn-outline mr-2">Detail</a>
+                                <a href="{{ route('admin.payment-statuses.edit', $paymentStatus->id) }}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                <button class="btn btn-sm btn-error" onclick="openDeleteModal(this)" data-id="{{ $paymentStatus->id }}">Hapus</button>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center">Belum ada tipe pembayaran tersedia.</td>
+                            <td colspan="4" class="text-center">Belum ada status pembayaran tersedia.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -59,8 +72,8 @@
             @csrf
             @method('DELETE')
 
-            <h3 class="text-lg font-bold mb-4">Hapus Tipe Pembayaran</h3>
-            <p>Apakah Anda yakin ingin menghapus tipe pembayaran ini?</p>
+            <h3 class="text-lg font-bold mb-4">Hapus Status Pembayaran</h3>
+            <p>Apakah Anda yakin ingin menghapus status pembayaran ini?</p>
             <div class="modal-action">
                 <button class="btn btn-primary" type="submit">Hapus</button>
                 <button class="btn" onclick="delete_modal.close()" type="reset">Batal</button>
@@ -72,12 +85,8 @@
         function openDeleteModal(button) {
             const id = button.dataset.id;
             const form = document.querySelector('#delete_modal form');
-
-            // Set action dengan parameter ID
-            form.action = `/admin/payment-types/${id}`
-
+            form.action = `/admin/payment-statuses/${id}`
             delete_modal.showModal();
         }
     </script>
-
 </x-layouts.admin>

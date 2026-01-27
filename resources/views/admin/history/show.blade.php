@@ -1,4 +1,17 @@
 <x-layouts.admin title="Detail Pemesanan">
+  @if (session('success'))
+    <div class="toast toast-bottom toast-center">
+      <div class="alert alert-success">
+        <span>{{ session('success') }}</span>
+      </div>
+    </div>
+
+    <script>
+      setTimeout(() => {
+        document.querySelector('.toast')?.remove()
+      }, 3000)
+    </script>
+  @endif
   <section class="mx-auto max-w-5xl space-y-6">
     <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
       <div>
@@ -21,6 +34,44 @@
         </div>
         <div class="p-6 lg:w-2/3">
 
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Tipe Pembayaran</div>
+              <div class="mt-2 text-sm font-semibold text-slate-800">{{ $order->paymentType?->nama ?? '-' }}</div>
+            </div>
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Status Pembayaran</div>
+              <div class="mt-2 text-sm font-semibold text-slate-800">{{ $order->paymentStatus?->nama ?? '-' }}</div>
+            </div>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 mt-4">
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Promo</div>
+              <div class="mt-2 text-sm font-semibold text-slate-800">{{ $order->promo?->nama ?? '-' }}</div>
+            </div>
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Diskon</div>
+              <div class="mt-2 text-sm font-semibold text-slate-800">Rp {{ number_format($order->diskon ?? 0, 0, ',', '.') }}</div>
+            </div>
+          </div>
+
+          <form method="POST" action="{{ route('admin.histories.payment-status.update', $order) }}" class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
+            @csrf
+            @method('PATCH')
+            <div class="form-control w-full sm:w-1/2">
+              <label class="label">
+                <span class="label-text">Ubah Status Pembayaran</span>
+              </label>
+              <select name="payment_status_id" class="select select-bordered w-full" required>
+                @foreach($paymentStatuses as $status)
+                  <option value="{{ $status->id }}" @selected($order->payment_status_id == $status->id)>{{ $status->nama }}</option>
+                @endforeach
+              </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Simpan Status</button>
+          </form>
+
 
           <div class="space-y-3">
             @foreach($order->detailOrders as $d)
@@ -38,10 +89,19 @@
 
           <div class="divider"></div>
 
-          <div class="flex justify-between items-center">
-            <span class="font-semibold text-slate-700">Total</span>
-            <span class="font-semibold text-lg text-slate-900">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</span>
-
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold text-slate-700">Subtotal</span>
+              <span class="font-semibold text-slate-900">Rp {{ number_format($order->subtotal_harga ?? $order->total_harga, 0, ',', '.') }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-semibold text-slate-700">Diskon</span>
+              <span class="font-semibold text-slate-900">Rp {{ number_format($order->diskon ?? 0, 0, ',', '.') }}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-semibold text-slate-700">Total</span>
+              <span class="font-semibold text-lg text-slate-900">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</span>
+            </div>
           </div>
           <div class="sm:ml-auto sm:mt-auto sm:mr-0 mx-auto mt-3 flex gap-2">
             <a href="{{ route('admin.histories.index') }}" class="btn btn-outline">Kembali ke Riwayat</a>

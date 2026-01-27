@@ -11,12 +11,19 @@ class Order extends Model
 
     protected $casts = [
         'total_harga' => 'decimal:2',
+        'subtotal_harga' => 'decimal:2',
+        'diskon' => 'decimal:2',
         'order_date' => 'datetime',
     ];
 
     protected $fillable = [
         'user_id',
         'event_id',
+        'payment_type_id',
+        'payment_status_id',
+        'promo_id',
+        'subtotal_harga',
+        'diskon',
         'order_date',
         'total_harga',
     ];
@@ -35,6 +42,21 @@ class Order extends Model
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id');
+    }
+
+    public function paymentType()
+    {
+        return $this->belongsTo(PaymentType::class);
+    }
+
+    public function paymentStatus()
+    {
+        return $this->belongsTo(PaymentStatus::class);
+    }
+
+    public function promo()
+    {
+        return $this->belongsTo(Promo::class);
     }
 
     public function detailOrders()

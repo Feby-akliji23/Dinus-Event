@@ -20,6 +20,12 @@
                 <div class="text-xs uppercase tracking-[0.3em] text-slate-400">Order #{{ $order->id }}</div>
                 <div class="dinus-order-card__title mt-2">{{ $order->event?->judul ?? 'Event' }}</div>
                 <div class="dinus-order-card__meta">{{ $order->order_date->translatedFormat('d F Y, H:i') }}</div>
+                <div class="mt-2 text-sm text-slate-500">
+                  Pembayaran: {{ $order->paymentType?->nama ?? '-' }} • Status: {{ $order->paymentStatus?->nama ?? '-' }}
+                </div>
+                <div class="mt-1 text-sm text-slate-500">
+                  Promo: {{ $order->promo?->nama ?? '-' }} • Diskon: Rp {{ number_format($order->diskon ?? 0, 0, ',', '.') }}
+                </div>
               </div>
 
               <div class="dinus-order-card__actions flex flex-col gap-3 lg:items-end">

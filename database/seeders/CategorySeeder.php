@@ -11,13 +11,13 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $kategoris = [
-            ['nama_kategori' => 'Konser'],
-            ['nama_kategori' => 'Seminar'],
-            ['nama_kategori' => 'Workshop'],
+            ['nama' => 'Konser'],
+            ['nama' => 'Seminar'],
+            ['nama' => 'Workshop'],
         ];
 
         foreach ($kategoris as $kategori) {
-            Kategori::create(['nama' => $kategori['nama_kategori']]);
+            Kategori::create($kategori);
         }
     }
 }

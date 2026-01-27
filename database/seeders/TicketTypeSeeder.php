@@ -10,13 +10,13 @@ class TicketTypeSeeder extends Seeder
     public function run(): void
     {
         $types = [
-        ['nama' => 'Reguler'],
-        ['nama' => 'Premium'],
-        ['nama' => 'VIP'],
+            ['nama' => 'Reguler'],
+            ['nama' => 'Premium'],
+            ['nama' => 'VIP'],
         ];
 
         foreach ($types as $type) {
-        TicketType::create($type);
+            TicketType::create($type);
         }
 
     }

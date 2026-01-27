@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'no_hp' => '081234567890',
                 'role' => 'user',
-            ]
+            ],
         ];
 
         foreach ($users as $user) {

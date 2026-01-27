@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\Admin\PaymentTypeController;
+use App\Http\Controllers\Admin\PaymentStatusController;
+use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\TicketTypeController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\User\EventController as UserEventController;
@@ -39,6 +41,10 @@ Route::middleware('auth')->group(function () {
 
         // Payment Type Management
         Route::resource('payment-types', PaymentTypeController::class);
+        // Payment Status Management
+        Route::resource('payment-statuses', PaymentStatusController::class);
+        // Promo Management
+        Route::resource('promos', PromoController::class);
 
         // Event Management
         Route::resource('events', EventController::class);
@@ -49,6 +55,7 @@ Route::middleware('auth')->group(function () {
         // Histories
         Route::get('/histories', [HistoriesController::class, 'index'])->name('histories.index');
         Route::get('/histories/{id}', [HistoriesController::class, 'show'])->name('histories.show');
+        Route::patch('/histories/{order}/payment-status', [HistoriesController::class, 'updatePaymentStatus'])->name('histories.payment-status.update');
 
     });
 });

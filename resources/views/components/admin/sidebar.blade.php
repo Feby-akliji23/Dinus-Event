@@ -54,6 +54,26 @@
                 </a>
             </li>
 
+<!-- Payment Status item -->
+            <li class="{{ request()->routeIs('admin.payment-statuses.*') ? 'bg-slate-100 text-slate-900 font-semibold rounded-lg' : '' }}">
+                <a href="{{ route('admin.payment-statuses.index') }}" class="rounded-lg gap-3 hover:bg-slate-100 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Status Pembayaran">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12h12M6 8h12M6 16h8M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2" />
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen Status Pembayaran</span>
+                </a>
+            </li>
+
+<!-- Promo item -->
+            <li class="{{ request()->routeIs('admin.promos.*') ? 'bg-slate-100 text-slate-900 font-semibold rounded-lg' : '' }}">
+                <a href="{{ route('admin.promos.index') }}" class="rounded-lg gap-3 hover:bg-slate-100 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Promo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12v6a2 2 0 0 1-2 2H8l-6-6 6-6h10a2 2 0 0 1 2 2v2M7 12h.01M11 12h.01" />
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen Promo</span>
+                </a>
+            </li>
+
 <!-- Event item -->
 <li class="{{ request()->routeIs('admin.events.*') ? 'bg-slate-100 text-slate-900 font-semibold rounded-lg' : '' }}">
 	<a href="{{ route('admin.events.index') }}" class="rounded-lg gap-3 hover:bg-slate-100 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event">

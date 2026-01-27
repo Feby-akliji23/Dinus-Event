@@ -125,11 +125,51 @@
             <span class="font-bold">Total</span>
             <span class="font-bold text-lg" id="modalTotal">Rp 0</span>
           </div>
+
+          <div class="divider"></div>
+          @if($paymentTypes->isEmpty())
+            <div class="alert alert-warning">
+              Metode pembayaran belum tersedia. Hubungi admin.
+            </div>
+          @else
+            <div class="form-control w-full">
+              <label class="label">
+                <span class="label-text">Metode Pembayaran</span>
+              </label>
+              <select id="paymentTypeSelect" class="select select-bordered w-full">
+                @foreach($paymentTypes as $paymentType)
+                  <option value="{{ $paymentType->id }}">{{ $paymentType->nama }}</option>
+                @endforeach
+              </select>
+            </div>
+          @endif
+
+          <div class="divider"></div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text">Pilih Promo (opsional)</span>
+            </label>
+            <select id="promoSelect" class="select select-bordered w-full">
+              <option value="">Tidak pakai promo</option>
+              @foreach($promos as $promo)
+                <option value="{{ $promo->id }}">
+                  {{ $promo->nama }} ({{ $promo->tipe === 'percent' ? $promo->nilai . '%' : 'Rp ' . number_format($promo->nilai, 0, ',', '.') }})
+                </option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text">Kode Promo (opsional)</span>
+            </label>
+            <input id="promoCodeInput" type="text" class="input input-bordered w-full" placeholder="Masukkan kode promo" />
+          </div>
         </div>
 
         <div class="modal-action">
           <button class="btn">Tutup</button>
-          <button type="button" class="btn btn-primary px-4 !bg-blue-900 text-white" id="confirmCheckout">Konfirmasi</button>
+          <button type="button" class="btn btn-primary px-4 !bg-blue-900 text-white" id="confirmCheckout" @if($paymentTypes->isEmpty()) disabled @endif>Konfirmasi</button>
         </div>
       </form>
     </dialog>
@@ -263,6 +303,16 @@
       btn.setAttribute('disabled', 'disabled');
       btn.textContent = 'Memproses...';
 
+      const paymentTypeSelect = document.getElementById('paymentTypeSelect');
+      const promoSelect = document.getElementById('promoSelect');
+      const promoCodeInput = document.getElementById('promoCodeInput');
+      if (!paymentTypeSelect) {
+        alert('Metode pembayaran belum tersedia.');
+        btn.removeAttribute('disabled');
+        btn.textContent = 'Konfirmasi (placeholder)';
+        return;
+      }
+
       // gather items
       const items = [];
       Object.values(tickets).forEach(t => {
@@ -285,7 +335,13 @@
             'Accept': 'application/json',
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
           },
-          body: JSON.stringify({ event_id: {{ $event->id }}, items })
+          body: JSON.stringify({
+            event_id: {{ $event->id }},
+            payment_type_id: Number(paymentTypeSelect.value),
+            promo_id: promoSelect && promoSelect.value ? Number(promoSelect.value) : null,
+            promo_code: promoCodeInput ? promoCodeInput.value.trim() : null,
+            items
+          })
         });
 
         if (!res.ok) {
