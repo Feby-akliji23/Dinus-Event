@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Event;
 use App\Models\Kategori;
+use App\Models\TicketType;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,19 +13,19 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-public function index()
-{
-	$events = Event::all();
-	return view('admin.event.index', compact('events'));
-}
+    public function index()
+        {
+            $events = Event::all();
+            return view('admin.event.index', compact('events'));
+        }
     /**
      * Show the form for creating a new resource.
      */
-public function create()
-    {
-        $categories = Kategori::all();
-        return view('admin.event.create', compact('categories'));
-    }
+    public function create()
+        {
+            $categories = Kategori::all();
+            return view('admin.event.create', compact('categories'));
+        }
 
     /**
      * Store a newly created resource in storage.
@@ -57,13 +58,15 @@ public function store(Request $request)
     /**
      * Display the specified resource.
      */
-public function show(string $id)
+    public function show(string $id)
     {
         $event = Event::findOrFail($id);
+        $event->load('tikets.ticketType');
         $categories = Kategori::all();
         $tickets = $event->tikets;
+        $ticketTypes = TicketType::orderBy('nama')->get();
 
-        return view('admin.event.show', compact('event', 'categories', 'tickets'));
+        return view('admin.event.show', compact('event', 'categories', 'tickets', 'ticketTypes'));
     }
 
     /**

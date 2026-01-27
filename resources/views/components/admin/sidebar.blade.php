@@ -29,6 +29,31 @@
 	</a>
 </li>
 
+<!-- Tipe Tiket item -->
+<li class="{{ request()->routeIs('admin.ticket-types.*') ? 'bg-slate-100 text-slate-900 font-semibold rounded-lg' : '' }}">
+	<a href="{{ route('admin.ticket-types.index') }}" class="rounded-lg gap-3 hover:bg-slate-100 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Tiket">
+		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+			<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12V6a2 2 0 0 0-2-2h-6m8 8v6a2 2 0 0 1-2 2h-6M4 12V6a2 2 0 0 1 2-2h6M4 12v6a2 2 0 0 0 2 2h6m-6-8h12" />
+		</svg>
+		<span class="is-drawer-close:hidden">Manajemen Tipe Tiket</span>
+	</a>
+</li>
+
+<!-- Payment Types item -->
+            <li class="{{ request()->routeIs('admin.payment-types.*') ? 'bg-gray-200 rounded-lg' : '' }}">
+                <a href="{{ route('admin.payment-types.index') }}"
+                    class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Tipe Pembayaran">
+                    <!-- Payment/Money icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                        <circle cx="12" cy="15" r="2"></circle>
+                    </svg>
+                    <span class="is-drawer-close:hidden">Manajemen Tipe Pembayaran</span>
+                </a>
+            </li>
+
 <!-- Event item -->
 <li class="{{ request()->routeIs('admin.events.*') ? 'bg-slate-100 text-slate-900 font-semibold rounded-lg' : '' }}">
 	<a href="{{ route('admin.events.index') }}" class="rounded-lg gap-3 hover:bg-slate-100 is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Event">

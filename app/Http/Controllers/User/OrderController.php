@@ -24,7 +24,7 @@ class OrderController extends Controller
   // show a specific order
   public function show(Order $order)
   {
-    $order->load('detailOrders.tiket', 'event');
+    $order->load('detailOrders.tiket.ticketType', 'event');
     return view('orders.show', compact('order'));
   }
 
@@ -49,7 +49,8 @@ class OrderController extends Controller
         foreach ($data['items'] as $it) {
           $t = Tiket::lockForUpdate()->findOrFail($it['tiket_id']);
           if ($t->stok < $it['jumlah']) {
-            throw new \Exception("Stok tidak cukup untuk tipe: {$t->tipe}");
+            $typeName = $t->ticketType?->nama ?? 'tiket';
+            throw new \Exception("Stok tidak cukup untuk tipe: {$typeName}");
           }
           $total += ($t->harga ?? 0) * $it['jumlah'];
         }

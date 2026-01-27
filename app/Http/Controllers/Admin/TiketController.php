@@ -27,11 +27,11 @@ class TiketController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-public function store(Request $request)
+    public function store(Request $request)
     {
         $validatedData = request()->validate([
             'event_id' => 'required|exists:events,id',
-            'tipe' => 'required|string|max:255',
+            'ticket_type_id' => 'required|exists:ticket_types,id',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
         ]);
@@ -61,12 +61,12 @@ public function store(Request $request)
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $ticket = Tiket::findOrFail($id);
 
         $validatedData = $request->validate([
-            'tipe' => 'required|string|max:255',
+            'ticket_type_id' => 'required|exists:ticket_types,id',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
         ]);

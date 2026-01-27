@@ -50,7 +50,7 @@
               @forelse($event->tikets as $tiket)
               <div class="dinus-ticket">
                 <div class="flex-1 space-y-1">
-                  <h4 class="font-semibold text-slate-900">{{ $tiket->tipe }}</h4>
+                  <h4 class="font-semibold text-slate-900">{{ $tiket->ticketType?->nama ?? 'Tiket' }}</h4>
                   <p class="dinus-ticket__meta">Stok: <span id="stock-{{ $tiket->id }}">{{ $tiket->stok }}</span></p>
                   <p class="text-sm text-slate-500">{{ $tiket->keterangan ?? '' }}</p>
                 </div>
@@ -149,7 +149,7 @@
             id: {{ $tiket->id }},
             price: {{ $tiket->harga ?? 0 }},
             stock: {{ $tiket->stok }},
-            tipe: "{{ e($tiket->tipe) }}"
+            typeName: "{{ e($tiket->ticketType?->nama ?? 'Tiket') }}"
           },
         @endforeach
       };
@@ -171,7 +171,7 @@
         if (qty > 0) {
           totalQty += qty;
           totalPrice += qty * t.price;
-          selectedHtml += `<div class="flex justify-between"><span>${t.tipe} x ${qty}</span><span>${formatRupiah(qty * t.price)}</span></div>`;
+          selectedHtml += `<div class="flex justify-between"><span>${t.typeName} x ${qty}</span><span>${formatRupiah(qty * t.price)}</span></div>`;
         }
       });
 
@@ -242,7 +242,7 @@
       Object.values(tickets).forEach(t => {
         const qty = Number(document.getElementById('qty-' + t.id).value || 0);
         if (qty > 0) {
-          itemsHtml += `<div class="flex justify-between"><span>${t.tipe} x ${qty}</span><span>${formatRupiah(qty * t.price)}</span></div>`;
+          itemsHtml += `<div class="flex justify-between"><span>${t.typeName} x ${qty}</span><span>${formatRupiah(qty * t.price)}</span></div>`;
           total += qty * t.price;
         }
       });

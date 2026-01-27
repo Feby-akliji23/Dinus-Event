@@ -11,11 +11,11 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-public function index()
-{
-		$categories = Kategori::all();
-		return view('admin.category.index', compact('categories'));
-}
+    public function index()
+    {
+            $categories = Kategori::all();
+            return view('admin.category.index', compact('categories'));
+    }
     /**
      * Show the form for creating a new resource.
      */

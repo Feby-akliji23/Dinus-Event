@@ -26,7 +26,7 @@
             @foreach($order->detailOrders as $d)
               <div class="flex justify-between items-center">
                 <div>
-                  <div class="font-semibold text-slate-800">{{ $d->tiket->tipe }}</div>
+                  <div class="font-semibold text-slate-800">{{ $d->tiket->ticketType?->nama ?? '-' }}</div>
                   <div class="text-sm text-slate-500">Qty: {{ $d->jumlah }}</div>
                 </div>
                 <div class="text-right">

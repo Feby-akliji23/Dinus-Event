@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\HistoriesController;
+use App\Http\Controllers\Admin\PaymentTypeController;
+use App\Http\Controllers\Admin\TicketTypeController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\User\EventController as UserEventController;
 use App\Http\Controllers\User\HomeController;
@@ -31,6 +33,12 @@ Route::middleware('auth')->group(function () {
 
         // Category Management
         Route::resource('categories', CategoryController::class);
+
+        // Ticket Type Management
+        Route::resource('ticket-types', TicketTypeController::class);
+
+        // Payment Type Management
+        Route::resource('payment-types', PaymentTypeController::class);
 
         // Event Management
         Route::resource('events', EventController::class);
