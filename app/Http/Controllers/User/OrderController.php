@@ -106,7 +106,7 @@ class OrderController extends Controller
         return $order;
       });
 
-      // flash success message to session so it appears after redirect
+      
       session()->flash('success', 'Pesanan berhasil dibuat.');
 
       return response()->json(['ok' => true, 'order_id' => $order->id, 'redirect' => route('orders.index')]);

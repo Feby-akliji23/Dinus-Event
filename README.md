@@ -87,6 +87,87 @@ event pada halaman index.blade.php. Dengan pola ini, tiap bagian punya tugas jel
 Untuk menginstal dan menjalankan Laravel, pertama **nyalakan Apache dan MySQL di XAMPP**. Setelah itu buat project Laravel baru dengan perintah composer create-project laravel/laravel ticketing_app, lalu masuk ke folder project menggunakan cd ticketing_app. Berikutnya lakukan **konfigurasi database** di file .env dengan mengisi DB_CONNECTION=mysql, DB_HOST=127.0.0.1, DB_PORT=3306, DB_DATABASE=ticketing_app, DB_USERNAME=root, dan DB_PASSWORD= (kosong). Setelah database **ticketing_app** dibuat di MySQL, jalankan php artisan migrate untuk membuat
 tabel-tabelnya. Terakhir, jalankan server development dengan php artisan serve dan akses aplikasi melalui [http://127.0.0.1:8000.](http://127.0.0.1:8000.)
 
+## Catatan Singkat (Database, MVC, Instalasi & Running)
+
+### Database
+
+#### Migration
+Dipakai untuk membuat table.
+
+Cara menjalankannya:
+- Dijalanin dengan `php artisan migrate`
+- Dibatalkan dengan `php artisan migrate:rollback`
+- Reset total dengan seed `php artisan migrate:fresh --seed`
+- Reset total tanpa seed `php artisan migrate:fresh`
+- Jika ingin mengedit migration lama: pastikan urutan migrationnya benar, pastikan semua table foreign key yang dihubungkan telah dibuat dulu, lakukan migration fresh, edit migration lama, lalu jalankan migrate fresh dengan seed.
+
+#### Seeder
+Dipakai untuk mengisi data awal/contoh ke database.
+
+Cara menjalankannya:
+- Buat seeder `php artisan make:seeder UserSeeder`
+- Semua seeder: `php artisan db:seed`
+- Seeder tertentu: `php artisan db:seed --class=CategorySeeder`
+
+#### Factory
+Bikin data palsu (dummy) untuk testing atau isi database banyak.
+
+Cara menjalankannya:
+- Buat `php artisan make:factory PostFactory --model=Post`
+
+### MVC
+
+#### Model
+Representasi tabel di database serta mendefinisikan relasi dan dipakai untuk query/insert/update/delete.
+
+Contoh perintah:
+- `php artisan make:model Kategori -m`
+- `php artisan make:model Event -m`
+- `php artisan make:model Tiket -m`
+- `php artisan make:model Order -m`
+- `php artisan make:model DetailOrder -m`
+
+#### View
+Berisi tampilan (Blade) yang menampilkan data ke pengguna.
+
+#### Controller
+Berisi logika aplikasi, mengatur alur data dari model ke view.
+
+### Instalasi & Running
+Jika besok diperlukan saat ujian, karena mengerjakan wajib menggunakan PC lab.
+
+Cara clone project:
+1. Buka repository GitHub di browser, copy URL repository.
+2. Jalankan:  
+   `git clone --branch dinus-event-v2 --single-branch https://github.com/Feby-akliji23/Dinus-Event.git`
+    `git clone --branch main --single-branch https://github.com/Feby-akliji23/Dinus-Event.git`
+
+   
+3. Buat folder baru di komputer, buka di VS Code.
+4. Buka terminal, jalankan perintah: `git clone (url repository)`, tunggu sampai selesai.
+5. Masuk ke direktori project, menu file → open folder, pilih folder project.
+6. Buka terminal, jalankan perintah: `composer install`, tunggu sampai selesai.
+7. Buka terminal, jalankan perintah: `npm install`, tunggu sampai selesai.
+8. Rename file `.env.example` menjadi `.env`, atur konfigurasi database (biasanya di baris 23).
+9. Buka terminal, jalankan perintah: `php artisan key:generate`.
+10. Buka terminal, jalankan perintah: `php artisan migrate`.
+11. Buka terminal, jalankan perintah: `php artisan db:seed`.
+12. Buka terminal baru, jalankan perintah: `php artisan serve`.
+13. Buka terminal baru, jalankan perintah: `npm run dev`.
+
+Disarankan: pakai terminal yang tipenya **Command Prompt**.
+
+### Storage image/file tidak kebaca (public storage)
+- `php artisan storage:link`
+
+### Instalasi Laravel Breeze
+- `composer require laravel/breeze --dev`
+- `php artisan breeze:install`
+
+### Middleware
+Buat Middleware:
+- `php artisan make:middleware AdminMiddleware`
+
 ## Membuat, menjalankan dan memahami migration database dan fungsi model
 
 **migration** digunakan untuk mendefinisikan struktur tabel dan relasi secara rapi, lalu **menjalankannya dengan php artisan migrate** supaya seluruh tabel benar-benar terbentuk di database sesuai rancangan.
@@ -169,4 +250,4 @@ lewat store atau update, lalu diarahkan kembali ke daftar event. Selanjutnya,
 
 Untuk sisi **user** , proses pemesanan dilakukan melalui fitur **Order/Checkout** yang dibuat melalui mekanisme fetch di show.blade.php (JavaScript checkout) yang mengirim data ke OrderController untuk menyimpan order beserta detail pembeliannya; setelah transaksi terbentuk, user dapat melihat **riwayat pembelian** pada index.blade.php dan membuka **detail order** pada show.blade.php.
 
-
+https://www.notion.so/WBK-2025-Ticketing-App-2e08d8819df1801a8409dbe948fc17f9
